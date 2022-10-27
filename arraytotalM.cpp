@@ -1,41 +1,34 @@
 #include<iostream>
+#include<vector>
 using namespace std;
-
-int m,n,a[100],b[100],count = 0, k;
-
-void init(){
-    cout<<"Nhap m = ";cin>>m;
-    cout<<"Nhap n = ";cin>>n;
-    for(int i = 1; i <=n; i++){
-        cout<<"a["<<i-1<<"] = ";
-        cin>>a[i];
-    }
-}
-
-bool check(){
-    k = 0;
-    for(int i = 1; i <=n;i++){
-        k += a[i] * b[i];
-    }if(k == m){
-        return true;
-    }
-    return false;
-}
-void gen(int r){
-    if(r > n){
-        if(check()){
-            count++;
-        }
-        return;
-    }
-    b[r] = 0; gen(r+1);
-    b[r] = 1; gen(r+1);
-}
+const int MAX=100;
+int a[MAX],b[MAX], n,m,count = 0;
+vector<int> c;
 int main(){
-    a[0] = 0;
-    b[0] = 0;
-    init();
-    gen(1);
-    cout<<"Co tat ca "<<count<< " cach phan tich.";
-    return 0;
+	cout <<"Nhap m = ";
+	cin >>m;
+	cout <<"Nhap n = ";
+	cin >>n;
+	n = n-1;
+	for(int i=0;i<=n;i++){
+		int x;
+		cout <<"a["<<i<<"] = ";
+		cin >>x;
+		if(x<m){
+			int length = c.size();
+			for(int j=0;j<length;j++){
+				if(c[j]<m){
+					int s = c[j]+x;
+					if(s==m)
+						count++;
+					if(s<m)
+						c.push_back(s);
+				}
+			}
+			c.push_back(x);
+		}
+		if(x == m)
+			count++;
+	}
+	cout <<"Co tat ca "<<count<<" cach phan tich.";
 }
